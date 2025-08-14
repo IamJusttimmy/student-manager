@@ -126,6 +126,17 @@ export default function () {
     }
   }
 
+  function handleResetAttendance() {
+    if (window.confirm("Want to reset all attendance for a new week?")) {
+      setStudents((students) =>
+        students.map((student) => ({
+          ...student,
+          attendance: { mon: "", tue: "", wed: "", thu: "", fri: "" },
+        }))
+      );
+    }
+  }
+
   useEffect(
     function () {
       localStorage.setItem("students", JSON.stringify(students));
@@ -135,7 +146,7 @@ export default function () {
 
   return (
     <div className="container">
-      <Header students={students} />
+      <Header students={students} onResetAttendance={handleResetAttendance} />
       <Main
         students={currentStudents}
         onAddStdent={handleAddStudent}
@@ -153,13 +164,18 @@ export default function () {
   );
 }
 
-function Header({ students }) {
+function Header({ students, onResetAttendance }) {
   return (
     <div className="app-header">
       <h1>📚 Student Attendance Management</h1>
       <div className="header-info">
-        <p>Track and Manage Student's Attendance Efficiently.</p>
-        <span className="student-count">Total Students: {students.length}</span>
+        <div className="blah">
+          <p>Track and Manage Student's Attendance Efficiently.</p>
+          <p className="student-count">Total Students: {students.length}</p>
+        </div>
+        <button className="reset-btn" onClick={onResetAttendance}>
+          Reset Attendance
+        </button>
       </div>
     </div>
   );

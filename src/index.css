@@ -49,9 +49,9 @@ body {
 }
 
 .student-count {
-  background: #edf2f7;
+  /* background: #edf2f7; */
   padding: 8px 16px;
-  border-radius: 20px;
+  /* border-radius: 20px; */
   font-weight: 600;
   color: #2d3748;
   font-size: 0.95rem;
@@ -315,4 +315,21 @@ td {
     padding: 8px 12px;
     font-size: 0.8rem;
   }
+}
+
+.reset-btn {
+  padding: 10px 20px;
+  background: #f56565;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-left: auto;
+}
+
+.reset-btn:hover {
+  background: #c53030;
 }
