@@ -60,6 +60,7 @@ export default function () {
     if (storedValue) {
       return JSON.parse(storedValue);
     }
+    return [];
   });
   const [currentPage, setCurrentPage] = useState(1);
   const studentsPerPage = 5;
