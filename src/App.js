@@ -133,7 +133,7 @@ export default function () {
   );
 
   return (
-    <>
+    <div className="container">
       <Header students={students} />
       <Main
         students={currentStudents}
@@ -148,17 +148,17 @@ export default function () {
         onPrevPage={handlePrevPage}
         onNextPage={handleNextPage}
       />
-    </>
+    </div>
   );
 }
 
 function Header({ students }) {
   return (
-    <div>
-      <h1>📚Student Attendance Management</h1>
-      <div className="header">
+    <div className="app-header">
+      <h1>📚 Student Attendance Management</h1>
+      <div className="header-info">
         <p>Track and Manage Student's Attendance Efficiently.</p>
-        <span>Total Student: {students.length}</span>
+        <span className="student-count">Total Students: {students.length}</span>
       </div>
     </div>
   );
@@ -173,12 +173,13 @@ function Main({ students, onAddStdent, onAttendanceClick, onDeleteStudent }) {
             <thead>
               <tr>
                 <th>Name</th>
-                <th>MATRIC NUMBER</th>
-                <th>MON</th>
-                <th>TUE</th>
-                <th>WED</th>
-                <th>THU</th>
-                <th>FRI</th>
+                <th>Matric Number</th>
+                <th>Mon</th>
+                <th>Tue</th>
+                <th>Wed</th>
+                <th>Thu</th>
+                <th>Fri</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -194,16 +195,7 @@ function Main({ students, onAddStdent, onAttendanceClick, onDeleteStudent }) {
           </table>
         </div>
       ) : (
-        <div
-          style={{
-            textAlign: "center",
-            padding: "40px",
-            color: "#666",
-            backgroundColor: "#f9f9f9",
-            borderRadius: "8px",
-            marginBottom: "20px",
-          }}
-        >
+        <div className="empty-state">
           <p>No students found. Add your first student below!</p>
         </div>
       )}
@@ -229,19 +221,9 @@ function Student({ student, onAttendanceClick, onDeleteStudent }) {
           {student.attendance[day]}
         </td>
       ))}
-
-      {/* <td>{student.attendance.mon}</td>
-      <td>{student.attendance.tue}</td>
-      <td>{student.attendance.wed}</td>
-      <td>{student.attendance.thu}</td>
-      <td>{student.attendance.fri}</td> */}
       <td>
         <button
-          style={{
-            background: "none",
-            border: "none",
-            cursor: "pointer",
-          }}
+          className="delete-btn"
           onClick={() => onDeleteStudent(student.id)}
         >
           ❌
@@ -258,7 +240,7 @@ function AddStudentForm({ onAddStdent }) {
   function handleSubmit(e) {
     e.preventDefault();
     if (!addStudentName || !addStudentid) {
-      window.confirm("Please fill in all fields to add student");
+      alert("Please fill in all fields to add student");
       return;
     }
 
@@ -277,7 +259,7 @@ function AddStudentForm({ onAddStdent }) {
     <form className="add-student-form" onSubmit={handleSubmit}>
       <input
         type="text"
-        placeholder="Name"
+        placeholder="Student Name"
         value={addStudentName}
         onChange={(e) => setAddStudentName(e.target.value)}
       />
@@ -287,7 +269,9 @@ function AddStudentForm({ onAddStdent }) {
         value={addStudentid}
         onChange={(e) => setAddStudentid(e.target.value)}
       />
-      <button type="submit">Add Student</button>
+      <button type="submit" className="add-btn">
+        Add Student
+      </button>
     </form>
   );
 }
@@ -306,12 +290,10 @@ function Pagination({
     const maxVisiblePages = 4;
 
     if (totalPages <= maxVisiblePages) {
-      // Show all pages if total is small
       for (let i = 1; i <= totalPages; i++) {
         pages.push(i);
       }
     } else {
-      // Show first page, current page area, and last page
       if (currentPage <= 3) {
         for (let i = 1; i <= 4; i++) {
           pages.push(i);
@@ -340,54 +322,27 @@ function Pagination({
 
   return (
     <div className="pagination">
-      <button
-        onClick={onPrevPage}
-        disabled={currentPage === 1}
-        style={{
-          cursor: currentPage === 1 ? "not-allowed" : "pointer",
-          backgroundColor: currentPage === 1 ? "#f5f5f5" : "white",
-          color: currentPage === 1 ? "#999" : "#333",
-        }}
-      >
+      <button onClick={onPrevPage} disabled={currentPage === 1}>
         Prev
       </button>
 
-      {/* <span>[1][2][3]</span> */}
-      {/* <button>1</button>
-      <button>2</button>
-      <button>3</button> */}
       {getPageNumbers().map((page, index) =>
         page === "..." ? (
-          <span key={index} style={{ padding: "8px 4px", color: "#666" }}>
+          <span key={index} className="pagination-ellipsis">
             ...
           </span>
         ) : (
           <button
             key={page}
             onClick={() => onPageChange(page)}
-            style={{
-              padding: "8px 12px",
-              border: "1px solid #ddd",
-              borderRadius: "4px",
-              cursor: "pointer",
-              backgroundColor: currentPage === page ? "#4CAF50" : "white",
-              color: currentPage === page ? "white" : "#333",
-            }}
+            className={currentPage === page ? "active" : ""}
           >
             {page}
           </button>
         )
       )}
 
-      <button
-        onClick={onNextPage}
-        disabled={currentPage === totalPages}
-        style={{
-          cursor: currentPage === totalPages ? "not-allowed" : "pointer",
-          backgroundColor: currentPage === totalPages ? "#f5f5f5" : "white",
-          color: currentPage === totalPages ? "#999" : "#333",
-        }}
-      >
+      <button onClick={onNextPage} disabled={currentPage === totalPages}>
         Next
       </button>
     </div>
