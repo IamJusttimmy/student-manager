@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 // const initalData = [
 //   {
@@ -253,6 +253,15 @@ function Student({ student, onAttendanceClick, onDeleteStudent }) {
 function AddStudentForm({ onAddStdent }) {
   const [addStudentName, setAddStudentName] = useState("");
   const [addStudentid, setAddStudentid] = useState("");
+  const inputEl = useRef(null);
+
+  useEffect(
+    function () {
+      inputEl.current.focus();
+    },
+
+    []
+  );
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -279,6 +288,7 @@ function AddStudentForm({ onAddStdent }) {
         placeholder="Student Name"
         value={addStudentName}
         onChange={(e) => setAddStudentName(e.target.value)}
+        ref={inputEl}
       />
       <input
         type="number"
