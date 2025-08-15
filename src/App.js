@@ -173,9 +173,11 @@ function Header({ students, onResetAttendance }) {
           <p>Track and Manage Student's Attendance Efficiently.</p>
           <p className="student-count">Total Students: {students.length}</p>
         </div>
-        <button className="reset-btn" onClick={onResetAttendance}>
-          Reset Attendance
-        </button>
+        {students.length > 0 && (
+          <button className="reset-btn" onClick={onResetAttendance}>
+            Reset Attendance
+          </button>
+        )}
       </div>
     </div>
   );
