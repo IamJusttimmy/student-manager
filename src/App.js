@@ -297,6 +297,7 @@ function AddStudentForm({ onAddStdent }) {
         placeholder="Matric Number"
         value={addStudentid}
         onChange={(e) => setAddStudentid(e.target.value)}
+        min="0"
       />
       <button type="submit" className="add-btn">
         Add Student

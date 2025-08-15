@@ -248,6 +248,7 @@ td {
 .pagination button:hover:not(:disabled) {
   border-color: #718096;
   background: #f7fafc;
+  color: #718096;
 }
 
 .pagination button:disabled {
